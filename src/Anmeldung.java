@@ -1,6 +1,11 @@
 import java.util.Date;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import swa.runningeasy.dtos.AnmeldungDTO;
+import swa.runningeasy.dtos.LaeuferDTO;
+
 import java.util.UUID;
 
 public class Anmeldung {
@@ -24,6 +29,10 @@ public class Anmeldung {
 	private Date zahlungsEingangsDatum;
 	
 	private Laeufer laeufer;
+	public Laeufer getLaeufer() {
+		return laeufer;
+	}
+
 	private Veranstaltung veranstaltung;
 	
 
@@ -70,6 +79,16 @@ public class Anmeldung {
 		this.status = Anmeldestatus.bezahlt;
 		this.zahlungsEingangsDatum = new Date();
 		this.startnummer = this.veranstaltung.generateStartNummer();
+	}
+	
+	public AnmeldungDTO generateDTO(){
+		return new AnmeldungDTO(
+				this.laeufer.generateDTO(),
+				this.status == Anmeldestatus.bezahlt || this.status == Anmeldestatus.beendet ? true : false,
+				this.veranstaltung.getName(),
+				this.laeufer.getVereinszugehoerigkeit() != null ? this.laeufer.getVereinszugehoerigkeit().getName() : null,
+				this.startnummer
+				); 
 	}
 
 	//getter

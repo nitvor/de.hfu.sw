@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import swa.runningeasy.dtos.LaeuferDTO;
+
 public class Laeufer extends Person {
 	private static Logger log = LogManager.getRootLogger();
 	
@@ -22,8 +24,8 @@ public class Laeufer extends Person {
 	
 	public void anmeldungHinzufuegen(Anmeldung anmeldung) throws Exception{
 		boolean exist = false;
-		for(int i = 0; i< this.anmeldungen.size(); i++){
-			if(this.anmeldungen.get(i).getVeranstaltung() == anmeldung.getVeranstaltung()){
+		for(Anmeldung vorhandeneAnmeldung : this.anmeldungen){
+			if(vorhandeneAnmeldung.getVeranstaltung() == anmeldung.getVeranstaltung()){
 				exist = true;
 				break;
 			}
@@ -50,5 +52,29 @@ public class Laeufer extends Person {
 		return vereinszugehoerigkeit;
 	}
 	
+	public void setVereinszugehoerigkeit(Verein vereinszugehoerigkeit) {
+		this.vereinszugehoerigkeit = vereinszugehoerigkeit;
+	}
+	
+	
+	/*
+	 * String name, String vorname, int geburtsjahr,
+			char geschlecht, String email, String sms, String strasse,
+			String plz, String ort, String land
+	 */
+	public LaeuferDTO generateDTO(){
+		return new LaeuferDTO(
+				this.getName(),
+				this.getVorname(),
+				this.getGeburtsjahr(),
+				this.getGeschlecht(),
+				this.getEmail(),
+				this.getTelefonnummer(),
+				this.getStrasse(),
+				this.getPlz(),
+				this.getOrt(),
+				this.getLand()
+				);
+	}
 	
 }
