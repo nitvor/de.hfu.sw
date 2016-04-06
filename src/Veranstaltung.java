@@ -24,8 +24,12 @@ public class Veranstaltung {
 	private ArrayList<Anmeldung> anmeldungen;
 	
 	private Ergebnisliste ergebnisListe = new Ergebnisliste();
-	//private Startliste 
 	
+
+	private Startliste startliste = new Startliste();
+	
+	
+
 	private int startNummerCounter = 0;
 	
 	public Veranstaltung(String name, float distanz, Date termin) {
@@ -66,18 +70,16 @@ public class Veranstaltung {
 		return result;
 	}
 	
-	public Startliste getStartList(){
-		Startliste res = new Startliste();
+	public void generateStartList(){
 		for(Anmeldung anmeldung: this.anmeldungen){
 			try{
 				if(anmeldung.getStatus() == Anmeldestatus.bezahlt){
-					res.hinzufuegen(anmeldung.getLaeufer(), anmeldung.getStartnummer());
+					this.startliste.hinzufuegen(anmeldung.getLaeufer(), anmeldung.getStartnummer());
 				}
 			}catch(Exception e){
 				log.error(e.getMessage());
 			}
 		}
-		return res;
 	}
 
 	/*
@@ -118,6 +120,14 @@ public class Veranstaltung {
 		return startgebuehr;
 	}
 	
+	public Startliste getStartliste() {
+		return startliste;
+	}
+	
+	public Ergebnisliste getErgebnisListe() {
+		return ergebnisListe;
+	}
+	
 	public VeranstaltungDTO generateDTO(){
 		VeranstaltungDTO res = new VeranstaltungDTO(
 				this.name,
@@ -135,5 +145,31 @@ public class Veranstaltung {
 			res.add(a.generateDTO());
 		}
 		return res;
+	}
+	
+	public Liste getAlleGemeldetenLaeufer(){
+		Liste result = new Liste();
+		for(Anmeldung a : this.anmeldungen){
+			try{
+				result.hinzufuegen(a.getLaeufer());
+			}catch(Exception e){
+				this.log.error(e.getMessage());
+			}
+		}
+		return result;
+	}
+	
+	public Laeufer getLaeuferByStartNummer(int nummer) throws Exception{
+		Laeufer result = null;
+		for(Anmeldung a : this.anmeldungen){
+			if(a.getStartnummer() == nummer){
+				result = a.getLaeufer();
+				break;
+			}
+		}
+		if(result == null){
+			throw new Exception("Laeufer nicht gefunden");
+		}
+		return result;
 	}
 }

@@ -44,4 +44,19 @@ public class Liste {
 				null
 				);
 	}
+	
+	public Liste marge(Liste liste){
+		Liste result = new Liste();
+		for(Laeufer l: this.laefers){
+			if(!liste.laefers.contains(l)){
+				try{
+				result.hinzufuegen(l);
+				}catch(Exception e){
+					//TODO
+				}
+			}
+		}
+		return result;
+	}
+	
 }

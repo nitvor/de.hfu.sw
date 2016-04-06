@@ -63,7 +63,14 @@ public class Service implements RunningServices {
 	}
 	@Override
 	public void erzeugeLaufzeit(LaufzeitDTO l) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
+		try{
+			Veranstaltung ver = this.suchVeranstaltung(l.getVeranstaltung());
+			Laeufer leuf = ver.getLaeuferByStartNummer(l.getStartnummer());
+			ver.getErgebnisListe().hinzufuegen(leuf, 
+					new Ergebnis(leuf,ver,l.getLaufzeit(),ver.getDistanz()));
+		}catch(Exception e){
+			this.log.error(e.getMessage());
+		}
 	}
 	@Override
 	public List<VeranstaltungDTO> getVeranstaltungen() {
@@ -101,13 +108,37 @@ public class Service implements RunningServices {
 	}
 	@Override
 	public List<LaufzeitDTO> getLaufzeiten(String Veranstaltung) {
-		// TODO Auto-generated method stub
-		return null;
+		List<LaufzeitDTO> res = null;
+		try{
+			res = this.suchVeranstaltung(Veranstaltung).getErgebnisListe().generateErgebnissListeDTO();
+		}catch(Exception e){
+			this.log.error(e.getMessage());
+		}
+		return res;
 	}
 	@Override
 	public List<ListeneintragDTO> getAuswertung(Auswertung a, String Veranstaltung) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ListeneintragDTO> res = null;
+		try{
+			Veranstaltung ver = this.suchVeranstaltung(Veranstaltung);
+			if(a == Auswertung.STARTLISTE){
+				res = ver.getStartliste().generateDTO();
+			}else if(a == Auswertung.NICHTSTARTER){
+				res =
+					ver.getAlleGemeldetenLaeufer().marge(ver.getStartliste())
+					.generateDTO();
+			}else if(a == Auswertung.GESAMTERGEBNISLISTE){
+				res = ver.getErgebnisListe().generateDTO();
+			}else if(a == Auswertung.ABBRECHER){
+				res =
+					ver.getStartliste().marge(ver.getErgebnisListe())
+					.generateDTO();
+			}
+			
+		}catch(Exception e){
+			this.log.error(e.getMessage());
+		}
+		return res;
 	}
 	@Override
 	public void init() {

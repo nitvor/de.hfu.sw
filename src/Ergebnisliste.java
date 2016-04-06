@@ -1,6 +1,11 @@
+import java.util.ArrayList;
 import java.util.HashMap;
-
+import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import swa.runningeasy.dtos.LaufzeitDTO;
 
 public class Ergebnisliste extends Liste {
 
@@ -15,16 +20,29 @@ public class Ergebnisliste extends Liste {
 		try{
 			super.hinzufuegen(lauefer);
 			this.ergebnisse.put(lauefer, erg);
+			this.Sort();
 		}catch(Exception e){
 			throw e;
 		}
 	}
 	
-	public void Sort(){
-		//TODO
+	private void Sort(){
+		SortedSet<Ergebnis> values = new TreeSet<Ergebnis>(this.ergebnisse.values());
+		this.ergebnisse.clear();
+		for(Ergebnis erg :values){
+			this.ergebnisse.put(erg.laeufer, erg);
+		}
 	}
 	
 	public Ergebnis getErgebniss(Laeufer lauefer){
 		return this.ergebnisse.get(lauefer);
+	}
+	
+	public List<LaufzeitDTO> generateErgebnissListeDTO(){
+		List<LaufzeitDTO> res = new ArrayList<LaufzeitDTO>();
+		for(Ergebnis erg : this.ergebnisse.values()){
+			res.add(erg.generateDTO());
+		}
+		return res;
 	}
 }

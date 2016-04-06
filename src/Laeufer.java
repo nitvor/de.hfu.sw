@@ -57,11 +57,6 @@ public class Laeufer extends Person {
 	}
 	
 	
-	/*
-	 * String name, String vorname, int geburtsjahr,
-			char geschlecht, String email, String sms, String strasse,
-			String plz, String ort, String land
-	 */
 	public LaeuferDTO generateDTO(){
 		return new LaeuferDTO(
 				this.getName(),
