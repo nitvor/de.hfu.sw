@@ -1,34 +1,30 @@
 
 public class Person {
-	
 	private String name;
 	private String vorname;
-	private int geburtsjahr;
+	private String adresse;
 	private char geschlecht;
+	private String geburtsjahr;
 	private String email;
 	private String telefonnummer;
-	private String strasse;
-	private String plz;
-	private String ort;
-	private String land;
-	
-	public Person(String name, String vorname, int geburtsjahr,
-			char geschlecht, String email, String telefonnummer, String strasse,
-			String plz, String ort, String land) {
-		super();
+	private boolean veranstalter;
+	private boolean schitzrichter;
+	private boolean vorstand;
+
+	public Person(String name, String vorname, String adresse, char geschlecht, String geburtsjahr, String email,
+			String telefonnummer, boolean veranstalter, boolean schitzrichter, boolean vorstand) {
 		this.name = name;
 		this.vorname = vorname;
-		this.geburtsjahr = geburtsjahr;
+		this.adresse = adresse;
 		this.geschlecht = geschlecht;
+		this.geburtsjahr = geburtsjahr;
 		this.email = email;
 		this.telefonnummer = telefonnummer;
-		this.strasse = strasse;
-		this.plz = plz;
-		this.ort = ort;
-		this.land = land;
+		this.veranstalter = veranstalter;
+		this.schitzrichter = schitzrichter;
+		this.vorstand = vorstand;
 	}
-	
-	// getter
+
 	public String getName() {
 		return name;
 	}
@@ -37,12 +33,16 @@ public class Person {
 		return vorname;
 	}
 
-	public int getGeburtsjahr() {
-		return geburtsjahr;
+	public String getAdresse() {
+		return adresse;
 	}
 
 	public char getGeschlecht() {
 		return geschlecht;
+	}
+
+	public String getGeburtsjahr() {
+		return geburtsjahr;
 	}
 
 	public String getEmail() {
@@ -53,20 +53,17 @@ public class Person {
 		return telefonnummer;
 	}
 
-	public String getStrasse() {
-		return strasse;
+	public boolean isVeranstalter() {
+		return veranstalter;
 	}
 
-	public String getPlz() {
-		return plz;
+	public boolean isSchitzrichter() {
+		return schitzrichter;
 	}
 
-	public String getOrt() {
-		return ort;
+	public boolean isVorstand() {
+		return vorstand;
 	}
-
-	public String getLand() {
-		return land;
-	}
-
+	
+	
 }
