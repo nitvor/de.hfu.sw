@@ -16,9 +16,17 @@ import swa.runningeasy.services.RunningServices;
  */
 public class Service implements RunningServices {
 	private static Logger log = LogManager.getRootLogger();
-	
+	/*
+	 * Liste der Veranstaltungen
+	 */
 	private ArrayList<Veranstaltung> veranstaltungen = new ArrayList<Veranstaltung>();
+	/*
+	 * Liste der Vereine
+	 */
 	private ArrayList<Verein> vereine = new ArrayList<Verein>();
+	/*
+	 * Liste der Laeufer
+	 */
 	private ArrayList<Laeufer> laeufer = new ArrayList<Laeufer>();
 	
 	
@@ -69,7 +77,7 @@ public class Service implements RunningServices {
 			ver.getErgebnisListe().hinzufuegen(leuf, 
 					new Ergebnis(leuf,ver,l.getLaufzeit(),ver.getDistanz()));
 		}catch(Exception e){
-			this.log.error(e.getMessage());
+			log.error(e.getMessage());
 		}
 	}
 	@Override
@@ -102,7 +110,7 @@ public class Service implements RunningServices {
 		try{
 			res = this.suchVeranstaltung(veranstaltung).getAnmeldungenDTO();
 		}catch(Exception e){
-			this.log.error(e.getMessage());
+			log.error(e.getMessage());
 		}
 		return res;
 	}
@@ -112,7 +120,7 @@ public class Service implements RunningServices {
 		try{
 			res = this.suchVeranstaltung(Veranstaltung).getErgebnisListe().generateErgebnissListeDTO();
 		}catch(Exception e){
-			this.log.error(e.getMessage());
+			log.error(e.getMessage());
 		}
 		return res;
 	}
@@ -136,7 +144,7 @@ public class Service implements RunningServices {
 			}
 			
 		}catch(Exception e){
-			this.log.error(e.getMessage());
+			log.error(e.getMessage());
 		}
 		return res;
 	}
@@ -145,7 +153,9 @@ public class Service implements RunningServices {
 		// TODO Auto-generated method stub
 		
 	}
-	
+	/*
+	 * Damit man nach einer Veranstaltung suchen kann.
+	 */
 	private Veranstaltung suchVeranstaltung(String name) throws Exception{
 		Veranstaltung res = null;
 		for(Veranstaltung v : this.veranstaltungen){
@@ -159,7 +169,9 @@ public class Service implements RunningServices {
 		}
 		return res;
 	}
-	
+	/*
+	 * Damit man nach einem Laeufer suchen kann.
+	 */
 	private Laeufer suchLaeufer(String vorname,String nachname) throws Exception{
 		Laeufer res = null;
 		for(Laeufer l : this.laeufer){

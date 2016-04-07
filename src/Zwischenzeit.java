@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 public class Zwischenzeit implements Comparable<Zwischenzeit> {
 	static Logger log = LogManager.getRootLogger();
-	
+
 	private float distanz;
 	private Date laufzeit;
 	

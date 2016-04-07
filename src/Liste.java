@@ -2,13 +2,13 @@ import java.util.*;
 
 import swa.runningeasy.dtos.ListeneintragDTO;
 public class Liste {
-	
+	/*
+	 * Liste von Laeufern
+	 */
 	private ArrayList<Laeufer> laefers = new ArrayList<Laeufer>();
-	
-	public Laeufer[] getLaefers() {
-		return (Laeufer[])laefers.toArray();
-	}
-
+	/*
+	 * Um den Laeufer zur Liste hinzufügen zu können.
+	 */
 	public void hinzufuegen(Laeufer lauefer) throws Exception{
 		boolean isIn = false;
 		for(Laeufer laueferList: this.laefers){
@@ -22,6 +22,10 @@ public class Liste {
 		}else{
 			throw new Exception("Laufer bereits in der Liste");
 		}
+	}
+	//getter
+	public Laeufer[] getLaefers() {
+		return (Laeufer[])laefers.toArray();
 	}
 	
 	public List<ListeneintragDTO> generateDTO(){

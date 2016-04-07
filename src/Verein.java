@@ -7,44 +7,59 @@ import swa.runningeasy.dtos.VereinDTO;
 
 public class Verein {
 	static Logger log = LogManager.getRootLogger();
-	
+	/*
+	 * Name des Vereins
+	 */
 	private String name;
+	/*
+	 * Laeufer die zu diesem Verein gehören.
+	 */
 	ArrayList<Laeufer> mitglieder;
-	
+
 	public Verein(String name) {
 		this.name = name;
 	}
-	
+
+	/*
+	 * Um Laeufer dem Verein hinzuzufügen
+	 */
 	public void mitgliedHinzufuegen(Laeufer laeufer) throws Exception {
-		if(laeufer.getVereinszugehoerigkeit() != null){
+		if (laeufer.getVereinszugehoerigkeit() != null) {
+			log.info("Der Laeufer " + laeufer.getName() + "ist nun Mitglied in dem Verein " + this.getName());
 			this.mitglieder.add(laeufer);
 			laeufer.setVereinszugehoerigkeit(this);
-		}else{
+		} else {
 			throw new Exception("Laefer gehoert bereits einem Verein an");
 		}
 	}
-	
-	public void mitgliedEntfernen(Laeufer laeufer)  throws Exception {
+
+	/*
+	 * Um Laeufer aus dem Verein zu entfernen
+	 */
+	public void mitgliedEntfernen(Laeufer laeufer) throws Exception {
 		boolean isIn = false;
-		for(Laeufer mitglied : this.mitglieder){
-			if(mitglied == laeufer){
+		for (Laeufer mitglied : this.mitglieder) {
+			if (mitglied == laeufer) {
 				isIn = true;
 				break;
 			}
 		}
-		if(!isIn){
+		if (!isIn) {
+			log.info("Der Laeufer " + laeufer.getName() + "ist nun in dem Verein " + this.getName()
+					+ "kein Mitglied mehr.");
 			this.mitglieder.remove(laeufer);
 			laeufer.setVereinszugehoerigkeit(null);
-		}else{
+		} else {
 			throw new Exception("Laefer nicht in dem Verein");
 		}
 	}
-	
+
+	// getter
 	public String getName() {
 		return name;
 	}
-	
-	public VereinDTO generateDTO(){
+
+	public VereinDTO generateDTO() {
 		return new VereinDTO(this.name);
 	}
 }

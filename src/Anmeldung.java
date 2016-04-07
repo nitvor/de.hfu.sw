@@ -1,8 +1,6 @@
 import java.util.Date;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import swa.runningeasy.dtos.AnmeldungDTO;
 import swa.runningeasy.dtos.LaeuferDTO;
 
@@ -14,7 +12,6 @@ public class Anmeldung {
 	 * Unique-ID fuer die Ueberweisung
 	 */
 	private UUID idNummer;
-
 	/*
 	 * Status der Anmeldung
 	 */
@@ -27,15 +24,11 @@ public class Anmeldung {
 	 * Zahlungseingangsdatum
 	 */
 	private Date zahlungsEingangsDatum;
-	
+
 	private Laeufer laeufer;
-	public Laeufer getLaeufer() {
-		return laeufer;
-	}
 
 	private Veranstaltung veranstaltung;
 	
-
 	/*
 	 *Startnummer bei der Veranstaltung
 	 *
@@ -56,7 +49,7 @@ public class Anmeldung {
 	}
 	
 	/*
-	 * Anmledung zurück ziehen
+	 * Anmledung zurueck ziehen
 	 * 
 	 * TODO: 
 	 * -Information an die Verwaltung weitungleiten, wenn die Genuehr bereits gezahlt wurde
@@ -116,10 +109,14 @@ public class Anmeldung {
 		return veranstaltung;
 	}
 	
+	public Laeufer getLaeufer() {
+		return laeufer;
+	}
+	
 	// Private-Methoden
 	private String createLogInfo() {
 		String result = "Anmeldung: " + idNummer + " zurueckgezogen.";
-		result += "Anmeldunggeb�hr wurde" + (this.zahlungsEingangsDatum != null ? "" : "nicht ") + "gezahlt";
+		result += "Anmeldunggebuehr wurde" + (this.zahlungsEingangsDatum != null ? "" : "nicht ") + "gezahlt";
 		return result;
 	}
 }

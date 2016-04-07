@@ -1,8 +1,6 @@
 import java.util.*;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import swa.runningeasy.dtos.AnmeldungDTO;
 import swa.runningeasy.dtos.LaeuferDTO;
 import swa.runningeasy.dtos.VeranstaltungDTO;
@@ -10,26 +8,42 @@ import swa.runningeasy.dtos.VeranstaltungDTO;
 public class Veranstaltung {
 
 	private static Logger log = LogManager.getRootLogger();
-	
+	/*
+	 * Name der Veranstaltung
+	 */
 	private String name;	
 	private float distanz;
+	/*
+	 * Termin von der Veranstaltung
+	 */
 	private Date termin;
-	
+	/*
+	 * Anmeldeschluss zur Veranstaltung
+	 */
 	private Date anmeldeschluss;
-	
-
+	/*
+	 * Startgebuehr fuer die Veranstaltung
+	 */
 	private int startgebuehr;
+	/*
+	 * Zahlungsinformation fuer die Startgebuehr
+	 */
 	private String zahlungsinformationen;
-	
+	/*
+	 * Liste der Anmeldungen
+	 */
 	private ArrayList<Anmeldung> anmeldungen;
-	
+	/*
+	 * Liste der Ergebnisse
+	 */
 	private Ergebnisliste ergebnisListe = new Ergebnisliste();
-	
-
+	/*
+	 * Liste mit den Laeufern die Starten
+	 */
 	private Startliste startliste = new Startliste();
-	
-	
-
+	/*
+	 * Fuer die Startnummer der Lauefer
+	 */
 	private int startNummerCounter = 0;
 	
 	public Veranstaltung(String name, float distanz, Date termin) {
@@ -42,8 +56,9 @@ public class Veranstaltung {
 		this(name,distanz,termin);
 		this.startNummerCounter = startNummerCounter;
 	}
-	
-	
+	/*
+	 * Damit der Lauefer zur Veranstaltung angemeldet ist.
+	 */
 	public void Anmelden(Laeufer laufer) throws Exception{
 		Anmeldung anmeldung = new Anmeldung(this, laufer);
 		try{
@@ -54,7 +69,7 @@ public class Veranstaltung {
 		}
 	}
 	/*
-	 * Gibt die Liste aller Laufer zurueck, die die Startgebühr nicht beszahlt haben
+	 * Gibt die Liste aller Laeufer zurueck, die die Startgebuehr nicht beszahlt haben
 	 */
 	public Liste getListeStargebuehrNichtBezahlt() {
 		Liste result = new Liste();
@@ -69,7 +84,9 @@ public class Veranstaltung {
 		}
 		return result;
 	}
-	
+	/*
+	 * Erzeugt die Startliste
+	 */
 	public void generateStartList(){
 		for(Anmeldung anmeldung: this.anmeldungen){
 			try{
@@ -90,7 +107,7 @@ public class Veranstaltung {
 		//TODO
 	}
 	
-	//TODO
+	//Generiert die Startnummer fuer den Laeufer
 	public int generateStartNummer(){
 		return ++this.startNummerCounter;
 	}

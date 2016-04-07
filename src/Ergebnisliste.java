@@ -11,11 +11,13 @@ public class Ergebnisliste extends Liste {
 
 	private Map<Laeufer,Ergebnis> ergebnisse = new HashMap<Laeufer,Ergebnis>();
 	
-
-	public void hinzufuegen(Laeufer lauefer) throws Exception{
-		throw new Exception("Jeder Laeufer sollte Ergebniss Besitzen");
-	}
 	
+	public void hinzufuegen(Laeufer lauefer) throws Exception{
+		throw new Exception("Jeder Laeufer sollte Ergebnis Besitzen");
+	}
+	/*
+	 * Laeufer mit seinem Ergebnis der Liste hinzufuegen.
+	 */
 	public void hinzufuegen(Laeufer lauefer,Ergebnis erg) throws Exception{
 		try{
 			super.hinzufuegen(lauefer);
@@ -25,7 +27,9 @@ public class Ergebnisliste extends Liste {
 			throw e;
 		}
 	}
-	
+	/*
+	 * Um die Ergebnisse zu Sortieren.
+	 */
 	private void Sort(){
 		SortedSet<Ergebnis> values = new TreeSet<Ergebnis>(this.ergebnisse.values());
 		this.ergebnisse.clear();
@@ -34,6 +38,7 @@ public class Ergebnisliste extends Liste {
 		}
 	}
 	
+	//getter
 	public Ergebnis getErgebniss(Laeufer lauefer){
 		return this.ergebnisse.get(lauefer);
 	}
