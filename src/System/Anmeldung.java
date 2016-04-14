@@ -38,6 +38,16 @@ public class Anmeldung {
 	 */
 	private int startnummer;
 	
+	private Verein verein;
+	
+	public Verein getVerein() {
+		return verein;
+	}
+
+	public void setVerein(Verein verein) {
+		this.verein = verein;
+	}
+
 	public Anmeldung(Veranstaltung veranstaltung, Laeufer leufer){
 		log.info("Anmeldung fuer die Veranstaltung-"+veranstaltung.getName()+" fuer Laufer "
 				+leufer.getName()+" erzeugt");
@@ -47,6 +57,13 @@ public class Anmeldung {
 		this.status = Anmeldestatus.angemeldet;
 		this.datumDerAnmeldung = new Date();
 		this.startnummer = 0;
+	}
+	
+	public Anmeldung(Veranstaltung veranstaltung, Laeufer leufer, Verein verein){
+		this(veranstaltung,leufer);
+		if(verein != null){
+			this.verein = verein;
+		}
 	}
 	
 	/*
@@ -83,13 +100,17 @@ public class Anmeldung {
 	}
 	
 	public AnmeldungDTO generateDTO(){
-		return new AnmeldungDTO(
+		AnmeldungDTO result = new AnmeldungDTO(
 				this.laeufer.generateDTO(),
 				this.status == Anmeldestatus.bezahlt || this.status == Anmeldestatus.beendet ? true : false,
 				this.veranstaltung.getName(),
 				this.laeufer.getVereinszugehoerigkeit() != null ? this.laeufer.getVereinszugehoerigkeit().getName() : "",
 				this.startnummer
 				); 
+		if(this.verein != null){
+			result.setVerein(this.verein.getName());
+		}
+		return result;
 	}
 
 	//getter

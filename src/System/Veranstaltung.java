@@ -47,15 +47,16 @@ public class Veranstaltung {
 	 */
 	private int startNummerCounter = 0;
 	
-	public Veranstaltung(String name, float distanz, Date termin, Date anmeldeschluss) {
+	public Veranstaltung(String name, float distanz,int startGebuer, Date termin, Date anmeldeschluss) {
 		this.name = name;
 		this.distanz = distanz;
 		this.termin = termin;
 		this.anmeldeschluss = anmeldeschluss;
+		this.startgebuehr = startGebuer;
 	}
 	
-	public Veranstaltung(String name, float distanz, Date termin, Date anmeldeschluss,int startNummerCounter) {
-		this(name,distanz,termin,anmeldeschluss);
+	public Veranstaltung(String name, float distanz,int startGebuer, Date termin, Date anmeldeschluss,int startNummerCounter) {
+		this(name,distanz,startGebuer,termin,anmeldeschluss);
 		this.startNummerCounter = startNummerCounter;
 	}
 	/*

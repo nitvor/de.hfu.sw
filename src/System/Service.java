@@ -32,7 +32,7 @@ public class Service implements RunningServices {
 	
 	
 	public void erzeugeVeranstaltung(VeranstaltungDTO v) {
-		Veranstaltung veranstaltung = new Veranstaltung(v.getName(),v.getDistanz(), v.getDatum(),v.getAnmeldeschluss());
+		Veranstaltung veranstaltung = new Veranstaltung(v.getName(),v.getDistanz(),v.getStartgebuehr(), v.getDatum(),v.getAnmeldeschluss());
 		veranstaltungen.add(veranstaltung);
 	}
 	
@@ -48,6 +48,9 @@ public class Service implements RunningServices {
 			Anmeldung an = veranstaltung.Anmelden(laeufer);
 			if(a.isBezahlt()){
 				an.anmeldungGezahlt(a.getStartnummer());
+			}
+			if(a.getVerein() != null && !a.getVerein().equalsIgnoreCase("")){
+				an.setVerein(this.suchVerein(a.getVerein()));
 			}
 		}catch(Exception e){
 			log.error(e.getMessage());
@@ -175,6 +178,21 @@ public class Service implements RunningServices {
 		}
 		return res;
 	}
+	
+	private Verein suchVerein(String name) throws Exception{
+		Verein res = null;
+		for(Verein v : this.vereine){
+			if(v.getName().equalsIgnoreCase(name)){
+				res = v;
+				break;
+			}
+		}
+		if(res == null){
+			throw new Exception("Verein "+name+" nicht gefunden");
+		}
+		return res;
+	}
+	
 	/*
 	 * Damit man nach einem Laeufer suchen kann.
 	 */
